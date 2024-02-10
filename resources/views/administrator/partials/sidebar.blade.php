@@ -21,15 +21,26 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link active">
                         <i class="fas fa-grip-vertical"></i>
-                        <p>Dashboard</p>
+                        <p style="margin-left: 0.5rem">Dashboard</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fas fa-users"></i>
-                        <p>User</p>
+                        <p style="margin-left: 0.5rem">User</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <form action="{{ route('auth.logout') }}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <button type="submit" class="nav-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <p style="margin-left: 0.5rem">Logout</p>
+                        </button>
+                    </form>
+                </li>
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

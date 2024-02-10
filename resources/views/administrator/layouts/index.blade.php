@@ -8,6 +8,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
         <link rel="stylesheet" href="{{ asset('administrator/plugins/fontawesome-free/css/all.min.css') }}">
         <link rel="stylesheet" href="{{ asset('administrator/dist/css/adminlte.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        @yield('style')
     </head>
     <body class="hold-transition sidebar-mini layout-fixed">
 
@@ -32,5 +34,6 @@
         <script src="{{ asset('administrator/plugins/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('administrator/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('administrator/dist/js/adminlte.js') }}"></script>
+        @yield('script')
     </body>
 </html>
