@@ -33,7 +33,7 @@
 
         <script src="{{ asset('administrator/plugins/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('administrator/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('administrator/dist/js/adminlte.js') }}"></script>
+        <script src="{{ asset('administrator/dist/js/adminlte.min.js') }}"></script>
         @yield('script')
     </body>
 </html>
