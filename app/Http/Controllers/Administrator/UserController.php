@@ -6,18 +6,21 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use App\Repositories\Interfaces\UserRepository;
 
 class UserController extends Controller
 {
+    public function __construct(protected UserRepository $userRepository) {}
+
     public function index(): View
     {
-        $users = User::paginate(10);
+        $users = $this->userRepository->paginate(10);
         return view('administrator.pages.users.index', compact('users'));
     }
 
     public function create()
     {
-
+        
     }
 
     /**
