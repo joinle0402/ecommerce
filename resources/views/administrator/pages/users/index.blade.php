@@ -38,9 +38,9 @@
                                     <button type="button" class="btn btn-danger">
                                         <i class="fas fa-trash"></i>
                                     </button>
-                                    <button type="button" class="btn btn-success">
+                                    <a  type="button" href="{{ route('admin.users.create') }}" class="btn btn-success">
                                         <i class="fas fa-plus"></i>
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

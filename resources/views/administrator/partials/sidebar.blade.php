@@ -25,7 +25,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route("admin.user.index") }}" @class(['nav-link', 'active' => request()->routeIs('admin.user.*')])>
+                    <a href="{{ route("admin.users.index") }}" @class(['nav-link', 'active' => request()->routeIs('admin.users.*')])>
                         <i class="fas fa-users"></i>
                         <p style="margin-left: 0.5rem">User</p>
                     </a>

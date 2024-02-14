@@ -12,7 +12,7 @@ Route::post('login', [AuthController::class, 'onLogin'])->name('auth.onLogin');
 Route::middleware('auth')->group(function () {
     Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('/dashboard', [IndexController::class, 'dashboard'])->name('dashboard');
-        Route::resource('user', UserController::class);
+        Route::resource('users', UserController::class);
     });
     Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 });

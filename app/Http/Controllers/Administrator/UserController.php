@@ -2,30 +2,35 @@
 
 namespace App\Http\Controllers\Administrator;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
-use App\Repositories\Interfaces\UserRepository;
+use App\Services\Interfaces\UserService;
+use App\Services\Interfaces\WardService;
+use App\Services\Interfaces\DistrictService;
+use App\Services\Interfaces\ProvinceService;
 
 class UserController extends Controller
 {
-    public function __construct(protected UserRepository $userRepository) {}
+    public function __construct(
+        protected UserService $userService,
+        protected ProvinceService $provinceService,
+        protected DistrictService $districtService,
+        protected WardService $wardService,
+    ) {}
 
     public function index(): View
     {
-        $users = $this->userRepository->paginate(10);
+        $users = $this->userService->paginate(10);
         return view('administrator.pages.users.index', compact('users'));
     }
 
-    public function create()
+    public function create(): View
     {
-        
+        $provinces = $this->provinceService->all();
+        return view('administrator.pages.users.create', compact('provinces'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //

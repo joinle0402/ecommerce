@@ -9,6 +9,6 @@ class IndexController extends Controller
 {
     public function dashboard(): RedirectResponse
     {
-        return redirect()->route('admin.user.index');
+        return redirect()->route('admin.users.index');
     }
 }

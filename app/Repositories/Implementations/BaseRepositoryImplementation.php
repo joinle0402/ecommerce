@@ -15,7 +15,7 @@ class BaseRepositoryImplementation implements BaseRepository
         return $this->model->query()->paginate($perPage);
     }
 
-    public function findAll(): Collection
+    public function all(): Collection
     {
         return $this->model->query()->get();
     }
