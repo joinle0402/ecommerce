@@ -9,6 +9,7 @@ use App\Services\Interfaces\UserService;
 use App\Services\Interfaces\WardService;
 use App\Services\Interfaces\DistrictService;
 use App\Services\Interfaces\ProvinceService;
+use App\Http\Requests\Administrator\Users\StoreUserRequest;
 
 class UserController extends Controller
 {
@@ -31,9 +32,9 @@ class UserController extends Controller
         return view('administrator.pages.users.create', compact('provinces'));
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        dd($request->validated());
     }
 
     /**

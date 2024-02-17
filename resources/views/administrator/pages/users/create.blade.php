@@ -7,7 +7,7 @@
                 <h2>Thêm mới người dùng</h2>
             </div>
         </div>
-        <form action="{{ route('admin.users.create') }}" method="POST">
+        <form action="{{ route('admin.users.store') }}" method="POST">
             @csrf
             @method('POST')
 
@@ -40,10 +40,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="role_id">Nhóm thành viên: <span style="color: red;">(*)</span></label>
-                                        <select id="role_id" class="form-control">
+                                        <select class="form-control" id="role_id" name="role_id">
                                             <option value="">[Chọn nhóm thành viên]</option>
-                                            <option value="1">Quản trị viên</option>
-                                            <option value="2">Cộng tác viên</option>
+                                            <option value="1" @selected(old('role_id') == '1')>Quản trị viên</option>
+                                            <option value="2" @selected(old('role_id') == '2')>Cộng tác viên</option>
                                         </select>
                                         @error('role_id')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -97,7 +97,9 @@
                                         <select class="form-control select2 select2-primary" id="province_code" name="province_code" onchange="handleSelectProvinceChange()" data-dropdown-css-class="select2-primary" style="width: 100%;">
                                             <option value="">Chọn thành phố</option>
                                             @foreach ($provinces as $province)
-                                                <option value="{{ $province->code }}">{{ $province->full_name }}</option>
+                                                <option value="{{ $province->code }}" @selected($province->code == old('province_code'))>
+                                                    {{ $province->full_name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         @error('province_code')
@@ -110,6 +112,14 @@
                                         <label for="district_code">Quận Huyện:</label>
                                         <select class="form-control select2 select2-primary" onchange="handleSelectDistrictChange()" id="district_code" name="district_code" data-dropdown-css-class="select2-primary" style="width: 100%;">
                                             <option value="">Chọn quận huyện</option>
+                                            @if (!empty(old('province_code')))
+                                                @php $districts = App\Models\District::where('province_code', old('province_code'))->get(); @endphp
+                                                @foreach ($districts as $district)
+                                                    <option value="{{ $district->code }}" @selected($district->code == old('district_code'))>
+                                                        {{ $district->full_name }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                         @error('district_code')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -123,6 +133,14 @@
                                         <label for="ward_code">Phường Xã:</label>
                                         <select class="form-control select2 select2-primary" id="ward_code" name="ward_code" onchange="updateTextareaAddress()" data-dropdown-css-class="select2-primary" style="width: 100%;">
                                             <option value="">Chọn quận huyện</option>
+                                            @if (!empty(old('district_code')))
+                                                @php $wards = App\Models\Ward::where('district_code', old('district_code'))->get(); @endphp
+                                                @foreach ($wards as $ward)
+                                                    <option value="{{ $ward->code }}" @selected($ward->code == old('ward_code'))>
+                                                        {{ $ward->full_name }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                         @error('ward_code')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -199,12 +217,14 @@
 
         async function request(method = 'GET', url, parameters = {}) {
             try {
+                $('#loading').show();
                 const response = await $.ajax({
                     method,
                     url: "{{ url("{url}") }}".replace('{url}', url),
                     body: parameters
                 });
                 console.log('request: ', { method, url, parameters, response });
+                $('#loading').hide();
                 return response;
             } catch (error) {
                 console.log(error);
