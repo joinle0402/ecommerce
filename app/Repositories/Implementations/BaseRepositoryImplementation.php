@@ -10,7 +10,7 @@ class BaseRepositoryImplementation implements BaseRepository
 {
     public function __construct(protected Model $model) {}
 
-    public function paginate(int $perPage = 15): LengthAwarePaginator
+    public function paginate(int $perPage = 10): LengthAwarePaginator
     {
         return $this->model->query()->paginate($perPage);
     }
@@ -18,5 +18,20 @@ class BaseRepositoryImplementation implements BaseRepository
     public function all(): Collection
     {
         return $this->model->query()->get();
+    }
+
+    public function create(array $data): Model
+    {
+        return $this->model->query()->create($data);
+    }
+
+    public function deleteByIds(array $ids): mixed
+    {
+        return $this->model->query()->whereIn('id', $ids)->delete();
+    }
+
+    public function deleteById(int $id): mixed
+    {
+        return $this->model->query()->where('id', $id)->delete();
     }
 }

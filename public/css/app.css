@@ -42,7 +42,6 @@
     height: 100%;
     background-color: grey;
     opacity: 0.5;
-    display: none;
 }
 
 .ring {
@@ -117,4 +116,18 @@
     100% {
         transform:rotate(405deg);
     }
+}
+
+/*select 2 */
+.select2-container--default .select2-selection--single .select2-selection__arrow,
+.select2-selection.select2-selection--single {height: 38px!important;}
+.select2-container--default .select2-selection--single .select2-selection__arrow {border-radius: 0.25rem!important;}
+.select2-container--default .select2-search--dropdown .select2-search__field {border-radius: 0.25rem!important;}
+.select2-container .select2-selection--single .select2-selection__rendered {padding-left: 0!important;}
+
+.table-inner th {
+    white-space: nowrap;
+}
+.table-inner tr {
+    background-color: transparent!important;
 }

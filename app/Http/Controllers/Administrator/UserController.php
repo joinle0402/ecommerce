@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Administrator;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
@@ -20,9 +21,9 @@ class UserController extends Controller
         protected WardService $wardService,
     ) {}
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $users = $this->userService->paginate(10);
+        $users = $this->userService->paginate($request->query('per_page', 10));
         return view('administrator.pages.users.index', compact('users'));
     }
 
@@ -32,40 +33,33 @@ class UserController extends Controller
         return view('administrator.pages.users.create', compact('provinces'));
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): RedirectResponse
     {
-        dd($request->validated());
+        $this->userService->create($request->validated());
+        return redirect()->route('admin.users.index')->with('success', 'Thêm mới thành công!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(int $id): void {}
+
+    public function edit(int $id): string
     {
-        //
+        return "edit-".$id;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, string $id): void
     {
-        //
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(int $id): RedirectResponse
     {
-        //
+        $this->userService->deleteById($id);
+        return redirect()->route('admin.users.index')->with('success', 'Xóa thành công!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroyMany(Request $request): RedirectResponse
     {
-        //
+        $this->userService->deleteByIds($request->input('checkedRows'));
+        return redirect()->route('admin.users.index')->with('success', 'Deleted users successfully!');
     }
 }

@@ -15,7 +15,7 @@
     <body class="hold-transition sidebar-mini layout-fixed">
 
         <div class="wrapper">
-            <div class="loading" id="loading">
+            <div class="loading" id="loading" style="">
                 <div class="ring">
                     Loading
                     <span></span>
@@ -35,9 +35,22 @@
             @include('administrator.partials.footer')
         </div>
 
-        <script src="{{ asset('administrator/plugins/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset('administrator/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('administrator/dist/js/adminlte.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('administrator/plugins/jquery/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('administrator/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
         @yield('script')
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    beforeSend: function(xhr, options) {
+                        options.url = "{{ url('/')  }}" + options.url;
+                    }
+                });
+                $('#loading').hide();
+            });
+        </script>
     </body>
 </html>
