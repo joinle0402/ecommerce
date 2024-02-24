@@ -10,7 +10,7 @@ class DistrictRepositoryImplementation extends BaseRepositoryImplementation impl
 {
     public function __construct(protected District $district)
     {
-        $this->model = $district;
+        parent::__construct($district);
     }
 
     public function findByProvinceCode(string $provinceCode): Collection
